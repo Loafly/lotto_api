@@ -1,0 +1,91 @@
+plugins {
+	id 'org.jetbrains.kotlin.jvm' version '1.9.25'
+	id 'org.jetbrains.kotlin.plugin.jpa' version '1.9.25'
+	id 'org.jetbrains.kotlin.plugin.spring' version '1.9.25'
+	id 'org.jetbrains.kotlin.kapt' version '1.9.25'
+	id("org.jetbrains.kotlin.plugin.serialization") version "1.9.25" // kotlinx.serialization 플러그인 추가
+	id 'org.springframework.boot' version '3.0.6'
+	id 'io.spring.dependency-management' version '1.1.6'
+}
+
+group = 'com.ns'
+version = '0.0.1-SNAPSHOT'
+
+ext {
+	queryDslVersion = "5.0.0"
+}
+
+java {
+	toolchain {
+		languageVersion = JavaLanguageVersion.of(17) // Java 17 설정
+	}
+}
+
+repositories {
+	mavenCentral()
+	maven { url 'https://repo.spring.io/milestone' }
+	maven { url 'https://repo.spring.io/snapshot' }
+}
+
+dependencies {
+	implementation 'org.springframework.boot:spring-boot-starter-web'
+	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+	implementation 'org.springframework.data:spring-data-commons'
+	implementation 'com.fasterxml.jackson.module:jackson-module-kotlin'
+	implementation "com.fasterxml.jackson.core:jackson-core:2.15.2"
+	implementation 'org.jetbrains.kotlin:kotlin-reflect'
+	implementation "com.squareup.retrofit2:retrofit:2.9.0"
+	implementation "com.squareup.retrofit2:converter-jackson:2.9.0"
+
+	// Kotlin 및 QueryDSL
+	implementation "org.jetbrains.kotlin:kotlin-stdlib:1.9.25"
+	implementation "org.jetbrains.kotlinx:kotlinx-serialization-json:1.6.0" // kotlinx.serialization 의존성 추가
+	implementation "com.querydsl:querydsl-jpa:$queryDslVersion:jakarta"
+	implementation "com.querydsl:querydsl-apt:$queryDslVersion:jakarta"
+	implementation "jakarta.persistence:jakarta.persistence-api"
+	implementation "jakarta.annotation:jakarta.annotation-api"
+
+	kapt "com.querydsl:querydsl-apt:$queryDslVersion:jakarta"
+	kapt "org.springframework.boot:spring-boot-configuration-processor"
+
+//	kapt "com.querydsl:querydsl-apt:$queryDslVersion:jpa"
+
+	// JPA 의존성
+	implementation "jakarta.persistence:jakarta.persistence-api:3.1.0"
+
+	// Lombok 및 MariaDB
+	compileOnly 'org.projectlombok:lombok'
+	annotationProcessor 'org.projectlombok:lombok'
+	runtimeOnly 'org.mariadb.jdbc:mariadb-java-client'
+
+	// 테스트 라이브러리
+	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	testImplementation 'org.jetbrains.kotlin:kotlin-test-junit5'
+}
+
+kapt {
+	correctErrorTypes = true
+	useBuildCache = true
+	arguments {
+		arg("querydsl.entityAccessors", "true")
+		arg("querydsl.createDefaultVariable", "true")
+	}
+}
+
+tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile).configureEach {
+	kotlinOptions {
+		freeCompilerArgs += "-Xjsr305=strict"
+		jvmTarget = "17" // Java 17에 맞게 설정
+	}
+}
+
+// QueryDSL Q 클래스 경로 설정
+sourceSets {
+	main {
+		java.srcDir("build/generated/source/kapt/main")
+	}
+}
+
+tasks.named('test') {
+	useJUnitPlatform()
+}
