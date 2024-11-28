@@ -17,7 +17,7 @@ class Lottery (
     var id: Long? = null,
 
     @Column(name = "draw_date")
-    val drawDate: LocalDate?,
+    val drawDate: LocalDate,
 
     @Column(name = "winning_number_1")
     val winningNumber1: Int,

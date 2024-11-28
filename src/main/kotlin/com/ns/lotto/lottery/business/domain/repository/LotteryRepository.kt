@@ -7,6 +7,7 @@ import org.springframework.data.domain.Pageable
 interface LotteryRepository {
 
     fun save(lottery: Lottery):Lottery
-
     fun search(pageable: Pageable): Page<Lottery>
+
+    fun getTopByOrderByIdDesc(): Lottery
 }

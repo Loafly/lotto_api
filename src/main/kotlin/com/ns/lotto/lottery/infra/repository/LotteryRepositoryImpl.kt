@@ -22,4 +22,8 @@ class LotteryRepositoryImpl(private val lotteryJpaRepository: LotteryJpaReposito
     override fun search(pageable: Pageable): Page<Lottery> {
         return lotteryQueryRepository.search(pageable)
     }
+
+    override fun getTopByOrderByIdDesc(): Lottery {
+        return lotteryJpaRepository.getTopByOrderByIdDesc()
+    }
 }

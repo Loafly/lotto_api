@@ -26,11 +26,5 @@ class LotteryQueryRepository(private val jpaQueryFactory: JPAQueryFactory) {
             .fetchFirst()
 
         return PageImpl(content, pageable, total)
-
-//        return PageImpl(
-//            content = content,
-//            pageable = pageable,
-//            total = total
-//        )
     }
 }
