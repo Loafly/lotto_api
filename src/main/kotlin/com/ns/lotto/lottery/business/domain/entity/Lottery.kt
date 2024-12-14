@@ -17,7 +17,7 @@ class Lottery (
     var id: Long? = null,
 
     @Column(name = "draw_date")
-    val drawDate: LocalDate,
+    val drawDate: LocalDate? = null,
 
     @Column(name = "winning_number_1")
     val winningNumber1: Int,
@@ -51,6 +51,10 @@ class Lottery (
         winningNumber6 = dto.drwtNo6,
         bonusNumber = dto.bnusNo
     )
+
+    override fun toString(): String {
+        return "Lottery(drawDate=$drawDate, numbers=[$winningNumber1, $winningNumber2, $winningNumber3, $winningNumber4, $winningNumber5, $winningNumber6], bonus=$bonusNumber)"
+    }
 }
 
 

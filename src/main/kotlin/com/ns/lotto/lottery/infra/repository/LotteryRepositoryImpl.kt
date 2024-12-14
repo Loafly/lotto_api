@@ -26,4 +26,8 @@ class LotteryRepositoryImpl(private val lotteryJpaRepository: LotteryJpaReposito
     override fun getTopByOrderByIdDesc(): Lottery {
         return lotteryJpaRepository.getTopByOrderByIdDesc()
     }
+
+    override fun findAll(): List<Lottery> {
+        return lotteryJpaRepository.findAll()
+    }
 }

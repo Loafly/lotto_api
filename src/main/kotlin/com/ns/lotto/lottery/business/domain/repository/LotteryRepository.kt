@@ -10,4 +10,5 @@ interface LotteryRepository {
     fun search(pageable: Pageable): Page<Lottery>
 
     fun getTopByOrderByIdDesc(): Lottery
+    fun findAll(): List<Lottery>
 }

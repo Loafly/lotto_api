@@ -16,7 +16,12 @@ class LotteryController(private val lotteryService: LotteryService) {
     }
 
     @GetMapping("/latest")
-    fun getLatest(): LotteryDto.SearchResponse {
-        return LotteryDto.SearchResponse(lotteryService.getLatest());
+    fun getLatest(): LotteryDto {
+        return LotteryDto(lotteryService.getLatest());
+    }
+
+    @GetMapping("/frequent-referral")
+    fun getFrequentReferral(): LotteryDto.ReferralResponse {
+        return LotteryDto.ReferralResponse(lotteryService.frequentReferralNumbers())
     }
 }
