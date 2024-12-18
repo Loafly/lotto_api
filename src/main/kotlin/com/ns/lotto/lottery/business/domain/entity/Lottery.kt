@@ -10,7 +10,7 @@ import java.time.format.DateTimeFormatter
 
 @Entity
 @Table(name = "lottery")
-class Lottery (
+class Lottery(
 
     @Id
     @Column(name = "id")
@@ -39,7 +39,19 @@ class Lottery (
 
     @Column(name = "bonus_number")
     val bonusNumber: Int,
-) {
+
+    @Column(name = "total_sell_amount")
+    val totalSellAmount: Long? = null,
+
+    @Column(name = "first_win_amount")
+    val firstWinAmount: Long? = null,
+
+    @Column(name = "first_prize_winner_count")
+    val firstPrizeWinnerCount: Int? = null,
+
+    @Column(name = "first_accumulated_amount")
+    val firstAccumulatedAmount: Long? = null,
+    ) {
     constructor(dto: LotteryApiDto) : this(
         id = dto.drwNo,
         drawDate = LocalDate.parse(dto.drwNoDate, DateTimeFormatter.ofPattern("yyyy-MM-dd")),
@@ -49,7 +61,23 @@ class Lottery (
         winningNumber4 = dto.drwtNo4,
         winningNumber5 = dto.drwtNo5,
         winningNumber6 = dto.drwtNo6,
-        bonusNumber = dto.bnusNo
+        bonusNumber = dto.bnusNo,
+        totalSellAmount = dto.totSellamnt,
+        firstWinAmount = dto.firstWinamnt,
+        firstPrizeWinnerCount = dto.firstPrzwnerCo,
+        firstAccumulatedAmount = dto.firstAccumamnt
+    )
+
+    constructor(winningNumber1: Int, winningNumber2: Int, winningNumber3: Int, winningNumber4: Int,winningNumber5: Int, winningNumber6: Int, bonusNumber: Int) : this (
+        id = null,
+        drawDate = null,
+        winningNumber1 = winningNumber1,
+        winningNumber2 = winningNumber2,
+        winningNumber3 = winningNumber3,
+        winningNumber4 = winningNumber4,
+        winningNumber5 = winningNumber5,
+        winningNumber6 = winningNumber6,
+        bonusNumber = bonusNumber,
     )
 
     override fun toString(): String {

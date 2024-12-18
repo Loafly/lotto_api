@@ -22,6 +22,7 @@ class LotteryService(private val lotteryRepository: LotteryRepository) {
         return lotteryRepository.getTopByOrderByIdDesc();
     }
 
+    // 데이터 저장
     @Transactional
     fun save(lottery: Lottery): Lottery {
         return lotteryRepository.save(lottery)

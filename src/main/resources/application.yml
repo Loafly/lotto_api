@@ -1,13 +1,14 @@
 spring:
   datasource:
     driver-class-name: org.mariadb.jdbc.Driver
-    url: jdbc:mariadb://localhost:3306/lotto?characterEncoding=UTF-8
+    url: jdbc:mariadb://localhost:3306/lotto?characterEncoding=UTF-8&allowPublicKeyRetrieval=true
     username: root
+#    password: 12354
     password:
 
-#  jpa:
-#    hibernate:
-#      ddl-auto: create
+  jpa:
+    hibernate:
+      ddl-auto: update
 server:
   servlet:
     context-path: "/api"
