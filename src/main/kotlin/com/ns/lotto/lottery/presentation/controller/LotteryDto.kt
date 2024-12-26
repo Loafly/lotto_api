@@ -50,7 +50,11 @@ class LotteryDto(
         )
     }
 
-    data class ReferralResponse (
+    data class FrequentNumbersResponse (val mostFrequentNumbers: Referral,
+                                        val leastFrequentNumbers: Referral,
+                                        val frequentNumbers: Map<Int, Int>)
+
+    data class Referral (
         val winningNumber1: Int,
         val winningNumber2: Int,
         val winningNumber3: Int,
