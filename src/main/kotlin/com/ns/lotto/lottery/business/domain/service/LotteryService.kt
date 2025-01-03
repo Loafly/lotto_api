@@ -4,7 +4,7 @@ import com.ns.lotto.lottery.business.domain.entity.Lottery
 import com.ns.lotto.lottery.business.domain.repository.LotteryRepository
 import com.ns.lotto.lottery.presentation.controller.LotteryDto
 import org.springframework.data.domain.Page
-import org.springframework.data.domain.PageRequest
+import org.springframework.data.domain.Pageable
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
 
@@ -13,8 +13,10 @@ class LotteryService(private val lotteryRepository: LotteryRepository) {
 
     // 동적 조회
     @Transactional(readOnly = true)
-    fun search(searchRequest: LotteryDto.SearchRequest): Page<Lottery> {
-        return lotteryRepository.search(searchRequest, PageRequest.of(0, 10))
+    fun search(searchRequest: LotteryDto.SearchRequest,
+               pageable: Pageable
+    ): Page<Lottery> {
+        return lotteryRepository.search(searchRequest, pageable)
     }
 
     // 가장 최근 데이터 조회

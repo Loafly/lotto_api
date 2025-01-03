@@ -41,16 +41,16 @@ class Lottery(
     val bonusNumber: Int,
 
     @Column(name = "total_sell_amount")
-    val totalSellAmount: Long? = null,
+    val totalSellAmount: Long,
 
     @Column(name = "first_win_amount")
-    val firstWinAmount: Long? = null,
+    val firstWinAmount: Long,
 
     @Column(name = "first_prize_winner_count")
-    val firstPrizeWinnerCount: Int? = null,
+    val firstPrizeWinnerCount: Int,
 
     @Column(name = "first_accumulated_amount")
-    val firstAccumulatedAmount: Long? = null,
+    val firstAccumulatedAmount: Long,
     ) {
     constructor(dto: LotteryApiDto) : this(
         id = dto.drwNo,
@@ -68,7 +68,10 @@ class Lottery(
         firstAccumulatedAmount = dto.firstAccumamnt
     )
 
-    constructor(winningNumber1: Int, winningNumber2: Int, winningNumber3: Int, winningNumber4: Int,winningNumber5: Int, winningNumber6: Int, bonusNumber: Int) : this (
+    constructor(winningNumber1: Int, winningNumber2: Int, winningNumber3: Int, winningNumber4: Int,
+                winningNumber5: Int, winningNumber6: Int, bonusNumber: Int, totalSellAmount: Long = 0,
+                firstWinAmount: Long = 0, firstPrizeWinnerCount: Int = 0, firstAccumulatedAmount: Long = 0
+        ) : this (
         id = null,
         drawDate = null,
         winningNumber1 = winningNumber1,
@@ -78,6 +81,10 @@ class Lottery(
         winningNumber5 = winningNumber5,
         winningNumber6 = winningNumber6,
         bonusNumber = bonusNumber,
+        totalSellAmount = totalSellAmount,
+        firstWinAmount = firstWinAmount,
+        firstPrizeWinnerCount = firstPrizeWinnerCount,
+        firstAccumulatedAmount = firstAccumulatedAmount
     )
 
     override fun toString(): String {
