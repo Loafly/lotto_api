@@ -4,6 +4,7 @@ import com.ns.lotto.lottery.business.domain.entity.Lottery
 import com.ns.lotto.lottery.business.domain.repository.LotteryRepository
 import com.ns.lotto.lottery.infra.repository.dsl.LotteryQueryRepository
 import com.ns.lotto.lottery.infra.repository.jpa.LotteryJpaRepository
+import com.ns.lotto.lottery.presentation.controller.LotteryDto
 import org.springframework.data.domain.Page
 import org.springframework.data.domain.Pageable
 import org.springframework.stereotype.Repository
@@ -19,8 +20,8 @@ class LotteryRepositoryImpl(private val lotteryJpaRepository: LotteryJpaReposito
     }
 
     @Transactional(readOnly = true)
-    override fun search(pageable: Pageable): Page<Lottery> {
-        return lotteryQueryRepository.search(pageable)
+    override fun search(searchRequest: LotteryDto.SearchRequest, pageable: Pageable): Page<Lottery> {
+        return lotteryQueryRepository.search(searchRequest, pageable)
     }
 
     override fun getTopByOrderByIdDesc(): Lottery {

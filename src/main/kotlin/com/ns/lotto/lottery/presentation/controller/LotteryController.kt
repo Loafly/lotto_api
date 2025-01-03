@@ -13,8 +13,8 @@ class LotteryController(private val lotteryService: LotteryService,
                         private val lotteryFacade: LotteryFacade) {
 
     @GetMapping("/search")
-    fun lottery(): Page<LotteryDto.SearchResponse>? {
-        return lotteryService.search().map { lottery -> LotteryDto.SearchResponse(lottery) };
+    fun lottery(searchRequest: LotteryDto.SearchRequest): Page<LotteryDto.SearchResponse>? {
+        return lotteryService.search(searchRequest).map { lottery -> LotteryDto.SearchResponse(lottery) };
     }
 
     @GetMapping("/latest")
